@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HealthModule } from './health/health.module';
 import { UserModule } from './user/user.module';
+import "reflect-metadata";
 
 @Module({
   imports: [
