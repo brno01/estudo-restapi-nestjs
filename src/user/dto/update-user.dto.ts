@@ -1,4 +1,12 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateUserDto } from './create-user.dto';
+import { IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
+export class UpdateUserDto {
 
-export class UpdateUserDto extends PartialType(CreateUserDto) {}
+    @IsNotEmpty({ message: "O email é obrigatório" })
+    @IsEmail({}, { message: "O email informado é inválido" })
+    @IsOptional()
+    email?: string;
+
+    @IsNotEmpty({ message: 'O nome é obrigatório' })
+    @IsOptional()
+    name?: string;
+}

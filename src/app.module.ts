@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HealthModule } from './health/health.module';
 import { UserModule } from './user/user.module';
-import "reflect-metadata";
 
 @Module({
   imports: [
@@ -17,11 +16,9 @@ import "reflect-metadata";
       password: '',
       logging: true,
       logger: 'advanced-console',
-      dropSchema: false,
-      entities: [
-        __dirname + '/**/*.entity{.ts,.js}'
-      ],
-
+      entities: ["dist/**/*.entity.ts,js"],
+      migrations: ["dist/**/*.migration.ts,js"],
+      subscribers: ["dist/**/*.subscriber.ts,js"],
       synchronize: true,
     }),
     HealthModule,

@@ -22,4 +22,3 @@ export abstract class BaseCollection extends BaseEntity {
     active: boolean;
 }
 
-

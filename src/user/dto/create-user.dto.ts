@@ -1,13 +1,8 @@
-import { IsEmail, IsNotEmpty, MinLength } from "class-validator";
+import { BaseCollection } from "src/common/base.entity";
 
-export class CreateUserDto {
+export class CreateUserDto extends BaseCollection {
 
-    @IsNotEmpty({ message: "O email é obrigatório" })
-    @IsEmail({}, { message: "O email informado é inválido" })
-    @MinLength(8)
     email: string;
 
-    @IsNotEmpty({ message: 'O nome é obrigatório' })
-    @MinLength(8)
     name: string;
 }
