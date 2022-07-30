@@ -3,7 +3,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HealthModule } from './health/health.module';
-//import { join } from 'path';
 import { UserModule } from './user/user.module';
 
 @Module({
