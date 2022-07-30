@@ -1,0 +1,36 @@
+                                        //> CRUD Tester <//
+POST http://localhost:3000/user
+//Create
+Content-Type: application/json
+
+{
+  "user": {
+    "name": "Bruno Santos",
+    "email": "bruno@gmail.com"
+  }
+}
+###
+
+GET http://localhost:3000/user/
+//Get All
+###
+
+GET http://localhost:3000/user/bruno@gmail.com
+//Get One
+
+###
+PATCH http://localhost:3000/user/bruno@gmail.com
+//Update
+Content-Type: application/json
+
+{
+  "user": {
+    "name": "Bruno Santos",
+    "login": "brn01",
+    "email": "brn@gmail.com"
+  }
+}
+###
+
+DELETE http://localhost:3000/user/bruno@gmail.com
+//Delete
