@@ -8,4 +8,6 @@ import { HealthController } from './health.controller';
 	controllers: [HealthController],
 })
 export class HealthModule {}
-console.log('Iniciando em : 3...2...1...');
+console.log(
+	'|| Iniciando em : 3...2...1...                                  ||',
+);

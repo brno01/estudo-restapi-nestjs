@@ -1,0 +1,29 @@
+GET http://localhost:3000/user
+//Listar todos os usuários
+###
+
+GET http://localhost:3000/user/jeremias@gmail.com
+//Listar um usuário específico
+###
+
+POST http://localhost:3000/user
+//Criar um usuário
+Content-Type: application/json
+
+{
+    "name": "test",
+    "email": "teste@gmail.com"
+}
+###
+
+PATCH http://localhost:3000/user
+//Atualizar um usuário
+Content-Type: application/json
+
+{
+    "name": "Teste",
+    "email": "teste@gmail.com"
+}
+###
+DELETE http://localhost:3000/user/teste@gmail.com
+//Deleta um usuário
