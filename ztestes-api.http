@@ -2,7 +2,7 @@ GET http://localhost:3000/user
 //Listar todos os usuários
 ###
 
-GET http://localhost:3000/user/jeremias@gmail.com
+GET http://localhost:3000/user/:email/bruno@gmail.com
 //Listar um usuário específico
 ###
 
@@ -11,8 +11,8 @@ POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-    "name": "test",
-    "email": "test@gmail.com"
+    "name": "Bruno",
+    "email": "bruno@gmail.com"
 }
 ###
 

@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 export abstract class BaseCollection extends BaseEntity {
-	@PrimaryGeneratedColumn('uuid', { name: 'id' })
+	@PrimaryGeneratedColumn('uuid', { name: 'id', })
 	id: string;
 
 	@CreateDateColumn({
@@ -23,6 +23,6 @@ export abstract class BaseCollection extends BaseEntity {
 	})
 	updateAt: string;
 
-	@Column({ type: 'bool', name: 'status', default: true })
-	status: boolean;
+	@Column({ type: 'bool', name: 'active', default: true })
+	active: boolean;
 }

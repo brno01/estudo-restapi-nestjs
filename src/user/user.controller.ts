@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
-import { UserService } from '../services/user.service';
-import { CreateUserDto } from '../dto/create.user.dto';
-import { User } from '../models/user.entity';
+import { UserService } from '../user/user.service';
+import { CreateUserDto } from '../user/dto/create.user.dto';
+import { User } from '../entities/user.entity';
 import { ApiBody } from '@nestjs/swagger';
 
 @Controller('user')
@@ -15,7 +15,7 @@ export class UserController {
 		return await this.userService.findAll();
 	}
 
-	@Get(':/')
+	@Get(':/email')
 	async findOne(email: string): Promise<User> {
 		return await this.userService.findOne(email);
 	}
