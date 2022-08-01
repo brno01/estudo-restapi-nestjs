@@ -12,15 +12,17 @@ export abstract class BaseCollection extends BaseEntity {
 
 	@CreateDateColumn({
 		type: 'timestamp',
+		name: 'created_at',
 	})
 	createdAt: string;
 
 	@UpdateDateColumn({
 		type: 'timestamp',
+		name: 'updated_at',
 		select: false,
 	})
 	updateAt: string;
 
-	@Column({ type: 'bool', name: 'active', default: true })
-	active: boolean;
+	@Column({ type: 'bool', name: 'status', default: true })
+	status: boolean;
 }
