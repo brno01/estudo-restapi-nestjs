@@ -1,7 +1,6 @@
 import { IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class UpdateUserDto {
-
     @IsNotEmpty({ message: 'O email é obrigatório para alteração :)' })
     @IsEmail({}, { message: 'O email informado é inválido para alteração :)' })
     @IsOptional()
@@ -10,5 +9,4 @@ export class UpdateUserDto {
     @IsNotEmpty({ message: 'O nome é obrigatório para alteração :)' })
     @IsOptional()
     name?: string;
-
 }

@@ -5,10 +5,11 @@ import { Column, Entity } from 'typeorm';
 export class User extends BaseCollection {
     @Column({
         length: 255,
-        name: 'email',
     })
     email: string;
 
-    @Column({ length: 120 })
+    @Column({
+        length: 120,
+    })
     name: string;
 }

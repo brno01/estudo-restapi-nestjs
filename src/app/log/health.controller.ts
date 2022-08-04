@@ -15,7 +15,7 @@ export class HealthController {
         private http: HttpHealthIndicator,
         private db: TypeOrmHealthIndicator,
         private memory: MemoryHealthIndicator,
-    ) { }
+    ) {}
 
     @Get()
     @ApiOperation({

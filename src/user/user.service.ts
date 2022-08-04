@@ -15,17 +15,15 @@ export class UserService {
     constructor(
         @InjectRepository(User)
         private userRepository: Repository<User>,
-    ) { }
+    ) {}
 
     async getAllUsers(): Promise<User[]> {
         const users = await this.userRepository.find();
-
         if (!users) {
             throw new InternalServerErrorException(
                 'Não foi possível buscar usuários',
             );
         }
-
         return users;
     }
 
@@ -33,29 +31,25 @@ export class UserService {
         const checkUser = await this.userRepository.findOne({
             where: { id },
         });
-
         if (!checkUser) {
-            throw new NotFoundException(
-                'Usuário não encontrado'
-            );
+            throw new NotFoundException('Usuário não encontrado');
         }
-
         return checkUser;
     }
 
     async createUser(user: CreateUserDto): Promise<User> {
-        const checkUser = await this.getUserById(user.email);
+        const checkUser = await this.userRepository.findOneBy({
+            email: user.email,
+        });
         if (checkUser) {
             throw new ConflictException('Usuário já existe no sistema');
         }
         const userSaved = this.userRepository.create({ ...user }).save();
-
         if (!userSaved) {
             throw new InternalServerErrorException(
                 'Não foi possível criar usuário',
             );
         }
-
         return userSaved;
     }
 
@@ -66,9 +60,12 @@ export class UserService {
         if (!checkUser) {
             throw new ConflictException('Usuário não existe no sistema');
         }
-        const userUpdated = await this.userRepository.create({
-            id, ...user
-        }).save();
+        const userUpdated = await this.userRepository
+            .create({
+                id,
+                ...user,
+            })
+            .save();
         if (!userUpdated) {
             throw new InternalServerErrorException(
                 'Não foi possível atualizar usuário',
@@ -77,7 +74,25 @@ export class UserService {
         const userSaved = await this.userRepository.findOne({
             where: { id },
         });
-
         return userSaved;
+    }
+
+    async deleteUser(id: string): Promise<User> {
+        const checkUser = await this.userRepository.findOne({
+            where: { id },
+        });
+        if (!checkUser) {
+            throw new ConflictException('Usuário não existe no sistema');
+        }
+        const userDeleted = await this.userRepository.delete({ id });
+        if (!userDeleted) {
+            throw new InternalServerErrorException(
+                'Não foi possível deletar usuário',
+            );
+        }
+        if (userDeleted) {
+            throw new NotFoundException('Usurário deletado com sucesso');
+        }
+        return checkUser;
     }
 }
