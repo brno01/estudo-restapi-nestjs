@@ -2,8 +2,13 @@ GET http://localhost:3000/user
 //Listar todos os usuários
 ###
 
-GET http://localhost:3000/user/:email/bruno@gmail.com
+GET http://localhost:3000/user/:email
 //Listar um usuário específico
+Content-Type: application/json
+
+{
+    "email":"bruno@gmail.com"
+}
 ###
 
 POST http://localhost:3000/user
@@ -11,8 +16,8 @@ POST http://localhost:3000/user
 Content-Type: application/json
 
 {
-    "name": "Bruno",
-    "email": "bruno@gmail.com"
+    "name": "Jeremias",
+    "email": "jere@gmail.com"
 }
 ###
 
@@ -25,5 +30,10 @@ Content-Type: application/json
     "email": "teste@gmail.com"
 }
 ###
-DELETE http://localhost:3000/user/teste@gmail.com
+DELETE http://localhost:3000/user/:email
 //Deleta um usuário
+Content-Type: application/json
+
+{
+    "email": "jere@gmail.com"
+}

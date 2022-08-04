@@ -4,10 +4,10 @@ import { HttpModule } from '@nestjs/axios';
 import { HealthController } from './health.controller';
 
 @Module({
-	imports: [TerminusModule, HttpModule],
-	controllers: [HealthController],
+    imports: [TerminusModule, HttpModule],
+    controllers: [HealthController],
 })
 export class HealthModule {}
 console.log(
-	'|| Iniciando em : 3...2...1...                                  ||',
+    '|| Iniciando em : 3...2...1...                                  ||',
 );
