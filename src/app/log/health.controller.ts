@@ -5,7 +5,6 @@ import {
     HttpHealthIndicator,
     HealthCheck,
     TypeOrmHealthIndicator,
-    DiskHealthIndicator,
     MemoryHealthIndicator,
 } from '@nestjs/terminus';
 
@@ -15,9 +14,8 @@ export class HealthController {
         private health: HealthCheckService,
         private http: HttpHealthIndicator,
         private db: TypeOrmHealthIndicator,
-        private disk: DiskHealthIndicator,
         private memory: MemoryHealthIndicator,
-    ) {}
+    ) { }
 
     @Get()
     @ApiOperation({
@@ -32,13 +30,8 @@ export class HealthController {
     check() {
         return this.health.check([
             () => this.http.pingCheck('nestjs-docs', 'https://docs.nestjs.com'),
-            () => this.db.pingCheck('database'),
-            () =>
-                this.disk.checkStorage('storage', {
-                    path: '/',
-                    thresholdPercent: 0.5,
-                }),
-            () => this.memory.checkHeap('memory_heap', 150 * 1024 * 1024),
+            () => this.db.pingCheck('Cyan Database Echo:', { timeout: 1000 }),
+            () => this.memory.checkHeap('Overload: NO!', 128 * 1024 * 1024),
         ]);
     }
 }

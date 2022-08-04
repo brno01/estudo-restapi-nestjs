@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
-import { ApiBody, ApiConflictResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiBody, ApiConflictResponse, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { User } from '../entities/user.entity';
 import { UserService } from '../user/user.service';
 import { CreateUserDto } from '../user/dto/create.user.dto';
@@ -24,7 +24,13 @@ export class UserController {
         summary: 'Find a specified user',
     })
     @ApiConflictResponse({
+        status: 409,
         description: 'User already exists with this email',
+    })
+    @ApiOkResponse({
+        status: 200,
+        description: 'User found',
+        type: User,
     })
     async getOne(@Param('id') id: string): Promise<User> {
         return this.userService.getUserById(id);

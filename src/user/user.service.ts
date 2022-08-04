@@ -74,7 +74,10 @@ export class UserService {
                 'Não foi possível atualizar usuário',
             );
         }
+        const userSaved = await this.userRepository.findOne({
+            where: { id },
+        });
 
-        return userUpdated;
+        return userSaved;
     }
 }
