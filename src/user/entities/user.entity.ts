@@ -1,4 +1,4 @@
-import { BaseCollection } from 'src/common/base.entity';
+import { BaseCollection } from 'src/common/shared/base.entity';
 import { Column, Entity } from 'typeorm';
 
 @Entity()
@@ -12,4 +12,9 @@ export class User extends BaseCollection {
         length: 120,
     })
     name: string;
+
+    @Column({
+        length: 255,
+    })
+    password: string;
 }

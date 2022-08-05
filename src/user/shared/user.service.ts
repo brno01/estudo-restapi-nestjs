@@ -7,15 +7,15 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
-import { CreateUserDto } from './dto/create.user.dto';
-import { UpdateUserDto } from './dto/update.user.dto';
+import { CreateUserDto } from '../dto/create.user.dto';
+import { UpdateUserDto } from '../dto/update.user.dto';
 
 @Injectable()
 export class UserService {
     constructor(
         @InjectRepository(User)
         private userRepository: Repository<User>,
-    ) {}
+    ) { }
 
     async getAllUsers(): Promise<User[]> {
         const users = await this.userRepository.find();
@@ -33,6 +33,16 @@ export class UserService {
         });
         if (!checkUser) {
             throw new NotFoundException('Usuário não encontrado');
+        }
+        return checkUser;
+    }
+
+    async getUserByEmail(email: string): Promise<User> {
+        const checkUser = await this.userRepository.findOne({
+            where: { email }
+        });
+        if (!checkUser) {
+            throw new NotFoundException('Usuário não encontrado pelo email');
         }
         return checkUser;
     }

@@ -7,5 +7,5 @@ export class AppService {
     }
 }
 console.log(
-    '|| REST API para Banco de Dados com pré-processamento em SQLite ||',
+    'REST API em Nest JS para diferentes tipos de Banco de Dados',
 );

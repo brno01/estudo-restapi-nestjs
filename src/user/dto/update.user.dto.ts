@@ -9,4 +9,8 @@ export class UpdateUserDto {
     @IsNotEmpty({ message: 'O nome é obrigatório para alteração :)' })
     @IsOptional()
     name?: string;
+
+    @IsNotEmpty({ message: 'Informe sua senha, por favor :)' })
+    @IsOptional()
+    password?: string;
 }
