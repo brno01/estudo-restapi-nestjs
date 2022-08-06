@@ -3,18 +3,12 @@ import { Column, Entity } from 'typeorm';
 
 @Entity()
 export class User extends BaseCollection {
-    @Column({
-        length: 255,
-    })
+    @Column({ name: 'email', length: 255 })
     email: string;
 
-    @Column({
-        length: 120,
-    })
+    @Column({ name: 'name', length: 120 })
     name: string;
 
-    @Column({
-        length: 255,
-    })
+    @Column({ name: 'password', length: 255, })
     password: string;
 }

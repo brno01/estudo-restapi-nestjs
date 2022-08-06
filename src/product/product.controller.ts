@@ -6,7 +6,9 @@ import {
     Patch,
     Param,
     Delete,
+    UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/shared/jwt-auth.guard';
 import { ProductService } from './shared/product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -18,6 +20,7 @@ export class ProductController {
     constructor(private productService: ProductService) { }
 
     @Post()
+    @UseGuards(JwtAuthGuard)
     @ApiOperation({
         summary: 'Create a new product',
     })
@@ -60,6 +63,7 @@ export class ProductController {
 
 
     @Patch(':id')
+    @UseGuards(JwtAuthGuard)
     @ApiOperation({
         summary: 'Update a specified product',
     })
@@ -74,6 +78,7 @@ export class ProductController {
 
 
     @Delete(':id')
+    @UseGuards(JwtAuthGuard)
     @ApiOperation({
         summary: 'Delete a specified product',
     })

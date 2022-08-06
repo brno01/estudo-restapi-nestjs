@@ -23,6 +23,6 @@ export abstract class BaseCollection extends BaseEntity {
     })
     updateAt: string;
 
-    @Column({ type: 'bool', name: 'active', default: true })
+    @Column({ name: 'active', default: true })
     active: boolean;
 }

@@ -1,6 +1,6 @@
 import {
     IsNotEmpty,
-    IsNumber,
+    IsNumberString,
     IsOptional,
     IsString,
     IsUrl,
@@ -10,9 +10,9 @@ export class CreateProductDto {
     @IsNotEmpty({ message: 'Product name is required' })
     name: string;
 
+    @IsNumberString({ message: 'Product price, please :)' })
     @IsNotEmpty({ message: 'Product price is required' })
-    @IsNumber({}, { message: 'Product price must be a number' })
-    price: number;
+    price: string;
 
     @IsString()
     @IsOptional()
