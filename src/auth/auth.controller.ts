@@ -4,7 +4,7 @@ import { LocalAuthGuard } from './shared/local-auth.guard';
 
 @Controller()
 export class AuthController {
-    constructor(private authService: AuthService,) { }
+    constructor(private authService: AuthService) {}
 
     @UseGuards(LocalAuthGuard)
     @Post('auth/login')

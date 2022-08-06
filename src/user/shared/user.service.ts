@@ -21,7 +21,7 @@ export class UserService {
         const users = await this.userRepository.find();
         if (!users) {
             throw new InternalServerErrorException(
-                'Não foi possível buscar usuários',
+                'Não foi possível buscar todos os usuários',
             );
         }
         return users;
@@ -32,14 +32,15 @@ export class UserService {
             where: { id },
         });
         if (!checkUser) {
-            throw new NotFoundException('Usuário não encontrado');
+            throw new NotFoundException('Usuário não encontrado no sistema');
         }
         return checkUser;
     }
 
+    //Autenticação JWT//
     async getUserByEmail(email: string): Promise<User> {
         const checkUser = await this.userRepository.findOne({
-            where: { email }
+            where: { email },
         });
         if (!checkUser) {
             throw new NotFoundException('Usuário não encontrado pelo email');
@@ -57,7 +58,7 @@ export class UserService {
         const userSaved = this.userRepository.create({ ...user }).save();
         if (!userSaved) {
             throw new InternalServerErrorException(
-                'Não foi possível criar usuário',
+                'Não foi possível criar usuário no sistema',
             );
         }
         return userSaved;
@@ -94,7 +95,9 @@ export class UserService {
         if (!checkUser) {
             throw new ConflictException('Usuário não existe no sistema');
         }
-        const userDeleted = await this.userRepository.delete({ id });
+        const userDeleted = await this.userRepository.delete({
+            id
+        });
         if (!userDeleted) {
             throw new InternalServerErrorException(
                 'Não foi possível deletar usuário',

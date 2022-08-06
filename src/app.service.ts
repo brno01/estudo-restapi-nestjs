@@ -6,6 +6,4 @@ export class AppService {
         return 'Hello Fucking World!';
     }
 }
-console.log(
-    'REST API em Nest JS para diferentes tipos de Banco de Dados',
-);
+console.log('REST API em Nest JS para diferentes tipos de Banco de Dados');

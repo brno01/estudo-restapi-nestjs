@@ -24,45 +24,53 @@ import { UpdateUserDto } from './dto/update.user.dto';
 export class UserController {
     constructor(private userService: UserService) { }
 
+    @Post()
     @UseGuards(JwtAuthGuard)
-    @Get()
     @ApiOperation({
-        summary: 'Get all users of database',
-    })
-    async getAll(): Promise<User[]> {
-        return await this.userService.getAllUsers();
-    }
-    @UseGuards(JwtAuthGuard)
-
-    @Get(':id')
-    @ApiOperation({
-        summary: 'Find a specified user',
+        summary: 'Create a new user',
     })
     @ApiConflictResponse({
         status: 409,
         description: 'User already exists with this email',
+    })
+    @ApiOkResponse({ type: User, isArray: true })
+    @ApiBody({ type: CreateUserDto })
+
+    async createUser(@Body() user: CreateUserDto): Promise<User> {
+        return this.userService.createUser(user);
+    }
+
+
+    @Get()
+    @UseGuards(JwtAuthGuard)
+    @ApiOperation({
+        summary: 'Get all users of database',
+    })
+    @ApiOkResponse({ type: User, isArray: true })
+
+    async getAll(): Promise<User[]> {
+        return await this.userService.getAllUsers();
+    }
+
+
+    @Get(':id')
+    @UseGuards(JwtAuthGuard)
+    @ApiOperation({
+        summary: 'Find a specified user',
     })
     @ApiOkResponse({
         status: 200,
         description: 'User found',
         type: User,
     })
+
     async getOne(@Param('id') id: string): Promise<User> {
         return this.userService.getUserById(id);
     }
 
-    @UseGuards(JwtAuthGuard)
-    @Post()
-    @ApiOperation({
-        summary: 'Create a new user',
-    })
-    @ApiBody({ type: CreateUserDto })
-    async create(@Body() user: CreateUserDto): Promise<User> {
-        return this.userService.createUser(user);
-    }
 
-    @UseGuards(JwtAuthGuard)
     @Patch(':id')
+    @UseGuards(JwtAuthGuard)
     @ApiOperation({
         summary: 'Update a specified user',
     })
@@ -70,8 +78,9 @@ export class UserController {
     @ApiOkResponse({
         status: 200,
         description: 'User updated',
-        type: User
+        type: User,
     })
+
     async update(
         @Param('id') id: string,
         @Body() user: UpdateUserDto,
@@ -79,15 +88,18 @@ export class UserController {
         return this.userService.updateUser(id, { ...user });
     }
 
-    @UseGuards(JwtAuthGuard)
+
     @Delete(':id')
+    @UseGuards(JwtAuthGuard)
     @ApiOperation({
         summary: 'Delete a specified user',
     })
     @ApiOkResponse({
         status: 200,
         description: 'User deleted',
+        type: User,
     })
+
     async delete(@Param('id') id: string): Promise<User> {
         return this.userService.deleteUser(id);
     }
