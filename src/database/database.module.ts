@@ -14,9 +14,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
             logger: 'advanced-console',
             autoLoadEntities: true,
             maxQueryExecutionTime: 1000,
-            dropSchema: false,
+            dropSchema: true,
             synchronize: true,
         }),
     ],
 })
-export class DatabaseModule {}
+export class DatabaseModule { }

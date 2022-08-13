@@ -9,14 +9,16 @@ import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { CreateUserDto } from '../dto/create.user.dto';
 import { UpdateUserDto } from '../dto/update.user.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
     constructor(
         @InjectRepository(User)
-        private userRepository: Repository<User>,
+        private readonly userRepository: Repository<User>,
     ) { }
 
+    //Get all users//
     async getAllUsers(): Promise<User[]> {
         const users = await this.userRepository.find();
         if (!users) {
@@ -27,6 +29,7 @@ export class UserService {
         return users;
     }
 
+    //Search user by ID//
     async getUserById(id: string): Promise<User> {
         const checkUser = await this.userRepository.findOne({
             where: { id },
@@ -37,7 +40,7 @@ export class UserService {
         return checkUser;
     }
 
-    //Autenticação JWT//
+    //Auth JWT for login//
     async getUserByEmail(email: string): Promise<User> {
         const checkUser = await this.userRepository.findOne({
             where: { email },
@@ -48,6 +51,7 @@ export class UserService {
         return checkUser;
     }
 
+    //Create new user//
     async createUser(user: CreateUserDto): Promise<User> {
         const checkUser = await this.userRepository.findOneBy({
             email: user.email,
@@ -55,15 +59,25 @@ export class UserService {
         if (checkUser) {
             throw new ConflictException('Usuário já existe no sistema');
         }
-        const userSaved = this.userRepository.create({ ...user }).save();
-        if (!userSaved) {
+        const userCreating = ({
+            ...user,
+            password: await bcrypt.hash(
+                user.password, 12,
+            ),
+        });
+        if (!userCreating) {
             throw new InternalServerErrorException(
                 'Não foi possível criar usuário no sistema',
             );
         }
-        return userSaved;
+        const userCreated = this.userRepository.save(userCreating);
+        return {
+            ...userCreated,
+            password: null,
+        };
     }
 
+    //Update user//
     async updateUser(id: string, user: UpdateUserDto): Promise<User> {
         const checkUser = await this.userRepository.findOne({
             where: { id },
@@ -75,6 +89,9 @@ export class UserService {
             .create({
                 id,
                 ...user,
+                password: await bcrypt.hash(
+                    user.password, 12
+                ),
             })
             .save();
         if (!userUpdated) {
@@ -88,6 +105,7 @@ export class UserService {
         return userSaved;
     }
 
+    //Delete user//
     async deleteUser(id: string): Promise<User> {
         const checkUser = await this.userRepository.findOne({
             where: { id },

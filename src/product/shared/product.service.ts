@@ -14,7 +14,7 @@ import { Product } from '../entities/product.entity';
 export class ProductService {
     constructor(
         @InjectRepository(Product)
-        private productRepository: Repository<Product>,
+        private readonly productRepository: Repository<Product>,
     ) { }
 
     async getAllProducts(): Promise<Product[]> {

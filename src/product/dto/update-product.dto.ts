@@ -8,11 +8,12 @@ export class UpdateProductDto extends PartialType(CreateProductDto) {
     name?: string;
 
     @IsOptional()
-    price?: string;
+    price?: number;
 
     @IsString()
     description?: string;
 
     @IsString()
     link?: string;
+
 }

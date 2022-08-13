@@ -7,7 +7,7 @@ export class AuthService {
     constructor(
         private userService: UserService,
         private jwtService: JwtService,
-    ) {}
+    ) { }
 
     async validateUser(userEmail: string, userPassword: string): Promise<any> {
         const user = await this.userService.getUserByEmail(userEmail);
@@ -15,7 +15,7 @@ export class AuthService {
             const { id, name, email } = user;
             return { id: id, name, email };
         }
-        return null;
+        return user;
     }
 
     async login(user: any) {
