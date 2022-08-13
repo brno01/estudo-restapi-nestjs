@@ -8,7 +8,7 @@ import {
     Delete,
     UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/shared/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { ProductService } from './shared/product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
