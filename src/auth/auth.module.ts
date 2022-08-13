@@ -3,6 +3,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { UserModule } from 'src/user/user.module';
 import { AuthController } from './auth.controller';
+import { LoginValidationMiddleware } from './middlewares/login-validation.middleware.ts';
 import { AuthService } from './shared/auth.service';
 import { jwtConstants } from './shared/constants';
 import { JwtStrategy } from './strategies/jwt.strategy';
@@ -22,6 +23,6 @@ import { LocalStrategy } from './strategies/local.strategy';
 })
 export class AuthModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
-        //consumer.apply(LoginValidationMiddleware).forRoutes('login');
+        consumer.apply(LoginValidationMiddleware).forRoutes('login');
     }
 }
