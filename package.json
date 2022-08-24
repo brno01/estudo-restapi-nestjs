@@ -12,6 +12,7 @@
         "start": "nest start",
         ":repl": "npm run start -- --entryFile repl",
         ":dev": "nest start --watch",
+        "docker:dev": "npm install && nest start --watch",
         ":debug": "nest start --debug --watch",
         ":prod": "node dist/main",
         "lint": "eslint --fix --ext .ts \"src/**/*.ts\" \"test/**/*.ts\"",

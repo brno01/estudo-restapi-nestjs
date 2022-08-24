@@ -2,6 +2,8 @@ import { Controller, UseGuards, Request, Post, HttpCode, HttpStatus } from '@nes
 import { AuthService } from './shared/auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { Login } from './models/authLogin';
+import { ApiBody, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { LoginRequestBody } from './models/login-body';
 
 @Controller()
 export class AuthController {
@@ -10,6 +12,8 @@ export class AuthController {
     @Post('auth/login')
     @UseGuards(LocalAuthGuard)
     @HttpCode(HttpStatus.OK)
+    @ApiBody({ type: LoginRequestBody })
+    @ApiUnauthorizedResponse({ description: 'Invalid credentials' })
     async login(@Request() req: Login) {
         return this.authService.login(req.user);
     }
