@@ -9,6 +9,6 @@ export class User extends BaseCollection {
     @Column({ name: 'name', length: 120 })
     name: string;
 
-    @Column({ name: 'password', length: 255, })
+    @Column({ name: 'password', length: 255 })
     password: string;
 }

@@ -3,7 +3,7 @@ import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { CreateOrderDto } from './create-order.dto';
 
 export class UpdateOrderDto extends PartialType(CreateOrderDto) {
-    @IsString({ message: "Product must be a string" })
+    @IsString({ message: 'Product must be a string' })
     @IsOptional()
     product?: string;
 

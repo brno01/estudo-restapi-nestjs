@@ -8,7 +8,6 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-
     //Fastify
     const app = await NestFactory.create<NestFastifyApplication>(AppModule, {
         bufferLogs: true,
@@ -22,18 +21,17 @@ async function bootstrap() {
             transform: true,
             whitelist: true,
             forbidNonWhitelisted: true,
-        })
+        }),
     );
 
     //Swagger
-    const config = (new DocumentBuilder()
+    const config = new DocumentBuilder()
         .setTitle('Cyan API')
         .setDescription(
             'REST API para Banco de Dados com pré-processamento em SQLite',
         )
         .setVersion('0.1.0')
-        .build()
-    );
+        .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('swagger', app, document);
 

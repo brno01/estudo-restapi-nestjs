@@ -1,10 +1,14 @@
-import { IsNotEmpty, IsNumberString, IsOptional, IsString } from 'class-validator';
+import {
+    IsNotEmpty,
+    IsNumberString,
+    IsOptional,
+    IsString,
+} from 'class-validator';
 import { BaseCollection } from 'src/common/shared/base.entity';
 import { Column, Entity } from 'typeorm';
 
 @Entity()
 export class Product extends BaseCollection {
-
     @IsNotEmpty({ message: 'Product name is required' })
     @IsString()
     @Column({
@@ -38,5 +42,4 @@ export class Product extends BaseCollection {
         length: 2083,
     })
     link: string;
-
 }

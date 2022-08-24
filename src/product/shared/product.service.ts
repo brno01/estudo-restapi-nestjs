@@ -15,7 +15,7 @@ export class ProductService {
     constructor(
         @InjectRepository(Product)
         private readonly productRepository: Repository<Product>,
-    ) { }
+    ) {}
 
     async getAllProducts(): Promise<Product[]> {
         const products = await this.productRepository.find();
@@ -99,7 +99,8 @@ export class ProductService {
         }
         if (productDeleted) {
             throw new NotFoundException(
-                'Produto removido do sistema com sucesso');
+                'Produto removido do sistema com sucesso',
+            );
         }
         return checkProduct;
     }

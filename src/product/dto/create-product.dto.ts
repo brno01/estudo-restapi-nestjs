@@ -7,7 +7,6 @@ import {
 } from 'class-validator';
 
 export class CreateProductDto {
-
     @IsNotEmpty({ message: 'Product name is required' })
     name: string;
 
@@ -22,5 +21,4 @@ export class CreateProductDto {
     @IsUrl({ message: 'Product link is not a valid url' })
     @IsOptional()
     link: string;
-
 }

@@ -3,7 +3,6 @@ import { IsOptional, IsString } from 'class-validator';
 import { CreateProductDto } from './create-product.dto';
 
 export class UpdateProductDto extends PartialType(CreateProductDto) {
-
     @IsString()
     name?: string;
 
@@ -15,5 +14,4 @@ export class UpdateProductDto extends PartialType(CreateProductDto) {
 
     @IsString()
     link?: string;
-
 }

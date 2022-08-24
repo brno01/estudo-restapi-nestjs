@@ -16,7 +16,7 @@ export class UserService {
     constructor(
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
-    ) { }
+    ) {}
 
     //Get all users//
     async getAllUsers(): Promise<User[]> {
@@ -59,12 +59,10 @@ export class UserService {
         if (checkUser) {
             throw new ConflictException('Usuário já existe no sistema');
         }
-        const userCreating = ({
+        const userCreating = {
             ...user,
-            password: await bcrypt.hash(
-                user.password, 12,
-            ),
-        });
+            password: await bcrypt.hash(user.password, 12),
+        };
         if (!userCreating) {
             throw new InternalServerErrorException(
                 'Não foi possível criar usuário no sistema',
@@ -90,9 +88,7 @@ export class UserService {
             .create({
                 id,
                 ...user,
-                password: await bcrypt.hash(
-                    user.password, 12
-                ),
+                password: await bcrypt.hash(user.password, 12),
             })
             .save();
         if (!userUpdated) {
@@ -115,7 +111,7 @@ export class UserService {
             throw new ConflictException('Usuário não existe no sistema');
         }
         const userDeleted = await this.userRepository.delete({
-            id
+            id,
         });
         if (!userDeleted) {
             throw new InternalServerErrorException(

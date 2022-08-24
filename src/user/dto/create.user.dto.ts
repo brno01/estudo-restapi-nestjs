@@ -1,8 +1,14 @@
-import { IsEmail, IsNotEmpty, IsString, Matches, MaxLength, MinLength } from 'class-validator';
+import {
+    IsEmail,
+    IsNotEmpty,
+    IsString,
+    Matches,
+    MaxLength,
+    MinLength,
+} from 'class-validator';
 import { UpdateUserDto } from './update.user.dto';
 
 export class CreateUserDto extends UpdateUserDto {
-
     @IsNotEmpty({ message: 'O email é obrigatório :)' })
     @IsEmail({}, { message: 'O email informado é inválido' })
     email: string;
@@ -19,5 +25,4 @@ export class CreateUserDto extends UpdateUserDto {
     @MinLength(6, { message: 'A senha deve conter no mínimo 6 caracteres' })
     @MaxLength(20, { message: 'A senha deve conter no máximo 20 caracteres' })
     password: string;
-
 }

@@ -22,7 +22,7 @@ import { UpdateUserDto } from './dto/update.user.dto';
 
 @Controller('user')
 export class UserController {
-    constructor(private userService: UserService) { }
+    constructor(private userService: UserService) {}
 
     @Post()
     @UseGuards(JwtAuthGuard)
@@ -35,11 +35,9 @@ export class UserController {
     })
     @ApiOkResponse({ type: User, isArray: true })
     @ApiBody({ type: CreateUserDto })
-
     async createUser(@Body() user: CreateUserDto): Promise<User> {
         return this.userService.createUser(user);
     }
-
 
     @Get()
     @UseGuards(JwtAuthGuard)
@@ -47,11 +45,9 @@ export class UserController {
         summary: 'Get all users of database',
     })
     @ApiOkResponse({ type: User, isArray: true })
-
     async getAll(): Promise<User[]> {
         return await this.userService.getAllUsers();
     }
-
 
     @Get(':id')
     @UseGuards(JwtAuthGuard)
@@ -63,11 +59,9 @@ export class UserController {
         description: 'User found',
         type: User,
     })
-
     async getOne(@Param('id') id: string): Promise<User> {
         return this.userService.getUserById(id);
     }
-
 
     @Patch(':id')
     @UseGuards(JwtAuthGuard)
@@ -80,14 +74,12 @@ export class UserController {
         description: 'User updated',
         type: User,
     })
-
     async update(
         @Param('id') id: string,
         @Body() user: UpdateUserDto,
     ): Promise<User> {
         return this.userService.updateUser(id, { ...user });
     }
-
 
     @Delete(':id')
     @UseGuards(JwtAuthGuard)
@@ -99,7 +91,6 @@ export class UserController {
         description: 'User deleted',
         type: User,
     })
-
     async delete(@Param('id') id: string): Promise<User> {
         return this.userService.deleteUser(id);
     }
