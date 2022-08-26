@@ -40,4 +40,4 @@ export class AuthService {
       auth_token: accessToken,
     };
   }
-}
+} 

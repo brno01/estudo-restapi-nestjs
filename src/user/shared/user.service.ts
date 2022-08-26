@@ -70,6 +70,7 @@ export class UserService {
     }
     const userCreated = this.userRepository.save(userCreating);
     return {
+      message: 'Usuário criado com sucesso',
       ...userCreating,
       password: '******',
       ...userCreated,
