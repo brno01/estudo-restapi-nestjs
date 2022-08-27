@@ -2,14 +2,14 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
-  NotFoundException,
+  NotFoundException
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
-import { User } from '../entities/user.entity';
 import { CreateUserDto } from '../dto/create.user.dto';
 import { UpdateUserDto } from '../dto/update.user.dto';
-import * as bcrypt from 'bcrypt';
+import { User } from '../entities/user.entity';
 
 @Injectable()
 export class UserService {
@@ -17,6 +17,32 @@ export class UserService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) { }
+
+  //Create new user//
+  async createUser(user: CreateUserDto): Promise<User> {
+    const checkUser = await this.userRepository.findOneBy({
+      email: user.email,
+    });
+    if (checkUser) {
+      throw new ConflictException('Usuário já existe no sistema');
+    }
+    const userCreating = {
+      ...user,
+      password: await bcrypt.hash(user.password, 12),
+    };
+    if (!userCreating) {
+      throw new InternalServerErrorException(
+        'Não foi possível criar usuário no sistema',
+      );
+    }
+    const userCreated = this.userRepository.save(userCreating);
+    return {
+      message: 'Usuário criado com sucesso',
+      ...userCreating,
+      password: '******',
+      ...userCreated,
+    };
+  }
 
   //Get all users//
   async getAllUsers(): Promise<User[]> {
@@ -51,31 +77,6 @@ export class UserService {
     return checkUser;
   }
 
-  //Create new user//
-  async createUser(user: CreateUserDto): Promise<User> {
-    const checkUser = await this.userRepository.findOneBy({
-      email: user.email,
-    });
-    if (checkUser) {
-      throw new ConflictException('Usuário já existe no sistema');
-    }
-    const userCreating = {
-      ...user,
-      password: await bcrypt.hash(user.password, 12),
-    };
-    if (!userCreating) {
-      throw new InternalServerErrorException(
-        'Não foi possível criar usuário no sistema',
-      );
-    }
-    const userCreated = this.userRepository.save(userCreating);
-    return {
-      message: 'Usuário criado com sucesso',
-      ...userCreating,
-      password: '******',
-      ...userCreated,
-    };
-  }
 
   //Update user//
   async updateUser(id: string, user: UpdateUserDto): Promise<User> {
