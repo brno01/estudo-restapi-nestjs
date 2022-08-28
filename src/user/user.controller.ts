@@ -65,6 +65,21 @@ export class UserController {
     return this.userService.getUserById(id);
   }
 
+  @Get(':email')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Find a specified user by email',
+  })
+  @ApiOkResponse({
+    status: 200,
+    description: 'User found',
+    type: User,
+  })
+  async getOneByEmail(@Param('email') email: string): Promise<User> {
+    return this.userService.getUserByEmail(email);
+  }
+
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()

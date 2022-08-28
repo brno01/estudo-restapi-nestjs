@@ -24,7 +24,7 @@ export class UserService {
       email: user.email,
     });
     if (checkUser) {
-      throw new ConflictException('Usuário já existe no sistema');
+      throw new ConflictException('Usuário com este email já existe no sistema');
     }
     const userCreating = {
       ...user,
@@ -32,7 +32,7 @@ export class UserService {
     };
     if (!userCreating) {
       throw new InternalServerErrorException(
-        'Não foi possível criar usuário no sistema',
+        'Não foi possível criar usuário',
       );
     }
     const userCreated = this.userRepository.save(userCreating);
@@ -59,6 +59,17 @@ export class UserService {
   async getUserById(id: string): Promise<User> {
     const checkUser = await this.userRepository.findOne({
       where: { id },
+    });
+    if (!checkUser) {
+      throw new NotFoundException('Usuário não encontrado no sistema');
+    }
+    return checkUser;
+  }
+
+  //Search user by email//
+  async getUserByEmail(email: string): Promise<User> {
+    const checkUser = await this.userRepository.findOne({
+      where: { email: email },
     });
     if (!checkUser) {
       throw new NotFoundException('Usuário não encontrado no sistema');
