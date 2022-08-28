@@ -25,6 +25,7 @@ import { UpdateUserDto } from './dto/update.user.dto';
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
+
   @Post()
   @ApiOperation({
     summary: 'Create a new user',
@@ -39,6 +40,7 @@ export class UserController {
     return this.userService.createUser(user);
   }
 
+
   @Get()
   @UseGuards(JwtAuthGuard)
   @ApiOperation({
@@ -49,6 +51,7 @@ export class UserController {
   async getAll(): Promise<User[]> {
     return await this.userService.getAllUsers();
   }
+
 
   @Get(':id')
   @UseGuards(JwtAuthGuard)
@@ -65,20 +68,6 @@ export class UserController {
     return this.userService.getUserById(id);
   }
 
-  @Get(':email')
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @ApiOperation({
-    summary: 'Find a specified user by email',
-  })
-  @ApiOkResponse({
-    status: 200,
-    description: 'User found',
-    type: User,
-  })
-  async getOneByEmail(@Param('email') email: string): Promise<User> {
-    return this.userService.getUserByEmail(email);
-  }
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
@@ -98,6 +87,7 @@ export class UserController {
   ): Promise<User> {
     return this.userService.updateUser(id, { ...user });
   }
+
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)

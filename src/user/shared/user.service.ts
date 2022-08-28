@@ -44,6 +44,7 @@ export class UserService {
     };
   }
 
+
   //Get all users//
   async getAllUsers(): Promise<User[]> {
     const users = await this.userRepository.find();
@@ -54,6 +55,7 @@ export class UserService {
     }
     return users;
   }
+
 
   //Search user by ID//
   async getUserById(id: string): Promise<User> {
@@ -66,16 +68,6 @@ export class UserService {
     return checkUser;
   }
 
-  //Search user by email//
-  async getUserByEmail(email: string): Promise<User> {
-    const checkUser = await this.userRepository.findOne({
-      where: { email: email },
-    });
-    if (!checkUser) {
-      throw new NotFoundException('Usuário não encontrado no sistema');
-    }
-    return checkUser;
-  }
 
   //Auth JWT for login//
   async AuthJWTSearch(email: string): Promise<User> {
@@ -114,6 +106,7 @@ export class UserService {
     });
     return userSaved;
   }
+
 
   //Delete user//
   async deleteUser(id: string): Promise<User> {

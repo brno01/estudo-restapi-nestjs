@@ -5,7 +5,7 @@ services:
         container_name: nest_api
         build: .
         ports:
-            - '3000:3000'
+            - ${NEST_PORT}:${NEST_PORT}
         volumes:
             - .:/home/api
             - /home/api/node_modules
@@ -20,13 +20,3 @@ services:
             POSTGRES_PASSWORD: '0'
             POSTGRES_DB: 'cyan'
         restart: always
-
-    pgadmin:
-        container_name: pgadmin4_container
-        image: dpage/pgadmin4
-        restart: always
-        environment:
-            PGADMIN_DEFAULT_EMAIL: admin@admin.com
-            PGADMIN_DEFAULT_PASSWORD: root
-        ports:
-            - '5050:5050'
