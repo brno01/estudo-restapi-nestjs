@@ -36,7 +36,7 @@ async function bootstrap() {
   SwaggerModule.setup('swagger', app, document);
 
   //Start
-  await app.listen(process.env.NEST_PORT || 3000);
+  await app.listen(process.env.NEST_PORT);
   console.log('API Iniciada com sucesso!');
 }
 bootstrap();

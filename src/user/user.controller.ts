@@ -18,7 +18,7 @@ import {
 } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from '../user/dto/create.user.dto';
-import { UserService } from './shared/user.service';
+import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update.user.dto';
 
 @Controller('user')

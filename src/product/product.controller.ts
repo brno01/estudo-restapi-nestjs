@@ -9,7 +9,7 @@ import {
     UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { ProductService } from './shared/product.service';
+import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import {
@@ -22,7 +22,7 @@ import { Product } from './entities/product.entity';
 
 @Controller('product')
 export class ProductController {
-    constructor(private productService: ProductService) {}
+    constructor(private productService: ProductService) { }
 
     @Post()
     @UseGuards(JwtAuthGuard)

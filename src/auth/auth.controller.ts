@@ -6,7 +6,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { AuthService } from './shared/auth.service';
+import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { Login } from './models/authLogin';
 import { ApiBody, ApiUnauthorizedResponse } from '@nestjs/swagger';
