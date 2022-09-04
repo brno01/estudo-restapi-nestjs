@@ -1,9 +1,9 @@
 import { NotFoundException } from '@nestjs/common';
+import { InternalServerErrorException } from '@nestjs/common/exceptions';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
-import { BaseCollection } from '../common/base.collection';
 import { UserService } from './user.service';
 
 describe('UserService', () => {
@@ -29,29 +29,34 @@ describe('UserService', () => {
   beforeEach(() => jest.clearAllMocks());
 
   const user: User = {
-    id: '12313123-123123a-asdad',
     name: 'Test',
     email: 'test@email.com',
     password: '@123456',
-    active: true,
-    createdAt: new (Date as any),
   } as User;
 
   describe('getAllUsers', () => {
-    it('should return an array of users', async () => {
+    it('Should return an array of users', async () => {
       repositoryMock.find = jest.fn().mockReturnValue([user]);
-      expect(user).toHaveLength(1);
+      const result = await service.getAllUsers();
+      expect(result).toStrictEqual([user]);
       expect(repositoryMock.find).toHaveBeenCalledTimes(1);
+    });
+
+    it('Should throw the InternalServerErrorException', async () => {
+      const error = new InternalServerErrorException('could not find all users');
+
+      repositoryMock.find = jest.fn()
+
+      await expect(service.getAllUsers()).rejects.toStrictEqual(error);
     });
   });
 
   describe('getUserById', () => {
     it('Should successfully get a user by id', async () => {
       repositoryMock.findOne = jest.fn().mockReturnValue(user);
-
       const result = await service.getUserById(user.id);
-
       expect(result).toStrictEqual(user);
+      expect(repositoryMock.findOne).toHaveBeenCalledTimes(1);
     });
 
     it('Should throw the NotFoundException exception when user not found', async () => {
