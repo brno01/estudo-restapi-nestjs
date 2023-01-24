@@ -14,6 +14,7 @@ export class Spot extends BaseCollection {
     @Column({
         name: 'id',
         length: 2083,
+        default: () => 'uuid_generate_v4()',
     })
     id: string;
 
