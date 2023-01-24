@@ -11,7 +11,6 @@ import { Column, Entity } from 'typeorm';
 @Entity()
 export class Spot extends BaseCollection {
     @IsString()
-    @IsOptional()
     @Column({
         name: 'id',
         length: 2083,
@@ -19,7 +18,6 @@ export class Spot extends BaseCollection {
     id: string;
 
     @IsDateString()
-    @IsOptional()
     @Column({
         name: 'spot',
         type: 'timestamp',
