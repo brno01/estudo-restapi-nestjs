@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
+import { Ip, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {
   FastifyAdapter,
@@ -37,6 +37,6 @@ async function bootstrap() {
 
   //Start
   await app.listen(process.env.NEST_PORT);
-  console.log('API Iniciada com sucesso!');
+  console.log('API Iniciada com sucesso! ' + ' Running on port:', process.env.NEST_PORT);
 }
 bootstrap();
